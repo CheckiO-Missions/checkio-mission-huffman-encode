@@ -1,24 +1,39 @@
 <!-- Describe task in general -->
 
 <p>
-Huffman code is a particular type of optimal prefix code that is commonly used for lossless data compression. An algorithm developed by David A. Huffman while he was a Sc.D. student at MIT, and published in the 1952.
+Huffman code is a particular type of optimal prefix code that is commonly used for lossless data compression.
+An algorithm developed by David A. Huffman while he was a Sc.D. student at MIT, and published in the 1952.
+</p>
     
-The output from Huffman's algorithm can be viewed as a variable-length code table for encoding a source symbols. The algorithm derives this table from the estimated probability or frequency of occurrence (weight) for each possible value of the source symbol. As in other entropy encoding methods, more common symbols are generally represented using fewer bits than less common symbols.
-    
-The simplest construction algorithm uses a priority queue where the node with lowest frequency is given highest priority.
-1. Create a leaf node for each symbol and add it to the priority queue.
-2. While there is more than one node in the queue:
-  a. Remove the two nodes of highest priority (lowest frequency) from the queue
-  b. Create a new internal node with these two nodes as children and with frequency equal to the sum of the two nodes' frequencies.
-  c. Add the new node to the queue.
-3. The remaining node is the root node and the tree is complete.
-<b>Important note</b>: for our task nodes with same frequency have different priority - symbol with lower ascii code have higher priority. I.e. 'A' higher than 'B', 'DZ' higher than 'E'.
-    
-4. Mark the connections between nodes with 0 and 1 (node with higher priority with 0, other with 1).
-5. Concatenation of digits by the way from root node to the leaf is the code for the leaf symbol.
-6. Result for our task is source string, where all symbols replaced with their codes.
+<p>
+The output from Huffman's algorithm can be viewed as a variable-length code table for encoding a source symbols.
+The algorithm derives this table from the estimated probability or frequency of occurrence (weight) for each possible value of the source symbol.
+As in other entropy encoding methods, more common symbols are generally represented using fewer bits than less common symbols.
 </p>
 
+<p>
+The simplest construction algorithm uses a priority queue where the node with lowest frequency is given highest priority.
+</p>
+<ul>
+<li>1. Create a leaf node for each symbol and add it to the priority queue.</li>
+<li><ul>2. While there is more than one node in the queue:
+  <li>a. Remove the two nodes of highest priority (lowest frequency) from the queue</li>
+  <li>b. Create a new internal node with these two nodes as children and with frequency equal to the sum of the two nodes' frequencies.</li>
+  <li>c. Add the new node to the queue.</li>
+</ul></li>
+<li>3. The remaining node is the root node and the tree is complete.</li>
+</ul>
+
+<p>
+<b>Important note</b>: for our task nodes with same frequency have different priority - symbol with lower ascii code have higher priority. I.e. 'A' higher than 'B', 'DZ' higher than 'E'.
+</p>
+
+<ul>
+<li>4. Mark the connections between nodes with 0 and 1 (node with higher priority with 0, other with 1).</li>
+<li>5. Concatenation of digits by the way from root node to the leaf is the code for the leaf symbol.</li>
+<li>6. Result for our task is source string, where all symbols replaced with their codes.</li>
+</ul>
+    
 <p style="text-align: center;">
     <img  title="example" src="{{MEDIA}}Huffman_coding_visualisation.svg" alt="Huffman_coding_visualisation" style="max-height: 384px"/>
 </p>
