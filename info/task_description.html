@@ -1,22 +1,20 @@
 <!-- Describe task in general -->
 
 <p>
-Ugly numbers are numbers whose only prime factors are 2, 3 or 5. 
-The sequence 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, ... shows the first 11 ugly numbers. By convention, 1 is included.
-Write a program to find and print the N’th ugly number. Same as previous task with a minor difference - input value limit is 1000000, and output is str.
+Huffman code is a particular type of optimal prefix code that is commonly used for lossless data compression. 
 </p>
 
 <p style="text-align: center;">
-    <img  title="example" src="{{MEDIA}}ugly_numbers.png" alt="ugly_numbers" style="max-height: 83px"/>
+    <img  title="example" src="{{MEDIA}}Huffman_coding_visualisation.svg" alt="Huffman_coding_visualisation" style="max-height: 384px"/>
 </p>
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Input: </strong>N, int.
+    <strong>Input: </strong>s, str.
 </p>
 
 <p>
-    <strong>Output: </strong>N'th Ugly Number, str. 
+    <strong>Output: </strong>huffman-encoded string, str. 
 </p>
 
 
@@ -27,16 +25,14 @@ Write a program to find and print the N’th ugly number. Same as previous task 
     </p>
 
 {% if is_js %}
-<pre class="brush: javascript">extremely_ugly(4) == '4'
-extremely_ugly(6) == '6'
-extremely_ugly(11) == '15'
-extremely_ugly(999) == '51018336'
+<pre class="brush: javascript">huffman_encode('BADABUM') == '1001110011000111'
+huffman_encode('no devil lived on') == '100101111000001110010011111011010110001000111101100'
+huffman_encode('an assassin sins') == '110111100110001100010111110001011110'
 </pre>
 {% else %}
-<pre class="brush: python">extremely_ugly(4) == '4'
-extremely_ugly(6) == '6'
-extremely_ugly(11) == '15'
-extremely_ugly(999) == '51018336'
+<pre class="brush: python">huffman_encode('BADABUM') == '1001110011000111'
+huffman_encode('no devil lived on') == '100101111000001110010011111011010110001000111101100'
+huffman_encode('an assassin sins') == '110111100110001100010111110001011110'
 </pre>
 {% endif %}
 </div>
@@ -46,14 +42,15 @@ extremely_ugly(999) == '51018336'
 <!-- The section is optional -->
 <p class="for_info_only">
     <strong>How it’s used: </strong>
-    <i>Demonstrate that straight way can be very slow</i>
+    <i>Commonly used for lossless data compression</i>
 </p>
 
 <!-- Here you can explain some constraints for input-->
 <!-- The section is optional -->
 <p>
     <strong>Precondition:</strong>
-    <i>Given int is below or equal of 1000000</i>
+    <i>Given string maximum length is 32000. String can contain letters and spaces (a-z, A-Z, " ")</i>
 </p>
 
-<p><i>Idea for the mission was taken from ICPC challenge</i></p>
+<p><i>Idea for the mission was taken from local school challenge for kids</i></p>
+<p>Screen by Cmglee for wiki - https://commons.wikimedia.org/w/index.php?curid=59931033</p>
