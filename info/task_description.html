@@ -1,7 +1,22 @@
 <!-- Describe task in general -->
 
 <p>
-Huffman code is a particular type of optimal prefix code that is commonly used for lossless data compression. 
+Huffman code is a particular type of optimal prefix code that is commonly used for lossless data compression. An algorithm developed by David A. Huffman while he was a Sc.D. student at MIT, and published in the 1952.
+    
+The output from Huffman's algorithm can be viewed as a variable-length code table for encoding a source symbols. The algorithm derives this table from the estimated probability or frequency of occurrence (weight) for each possible value of the source symbol. As in other entropy encoding methods, more common symbols are generally represented using fewer bits than less common symbols.
+    
+The simplest construction algorithm uses a priority queue where the node with lowest frequency is given highest priority.
+1. Create a leaf node for each symbol and add it to the priority queue.
+2. While there is more than one node in the queue:
+  a. Remove the two nodes of highest priority (lowest frequency) from the queue
+  b. Create a new internal node with these two nodes as children and with frequency equal to the sum of the two nodes' frequencies.
+  c. Add the new node to the queue.
+3. The remaining node is the root node and the tree is complete.
+<b>Important note</b>: for our task nodes with same frequency have different priority - symbol with lower ascii code have higher priority. I.e. 'A' higher than 'B', 'DZ' higher than 'E'.
+    
+4. Mark the left nodes of the tree with 0, right nodes with 1.
+5. Concatenation of zeros and ones by the way from root node to the leaf is the code for the leaf symbol.
+6. Result for our task is concatenation of all symbol codes.
 </p>
 
 <p style="text-align: center;">
