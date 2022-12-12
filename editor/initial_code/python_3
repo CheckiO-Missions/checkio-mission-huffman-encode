@@ -12,4 +12,6 @@ if __name__ == '__main__':
     assert huffman_encode('A DEAD DAD CEDED A BAD BABE A BEADED ABACA BED') == \
            '1000011101001000110010011101100111001001000111110010011111011111100010001111110100111001001011111011101000111111001'
     assert huffman_encode('no devil lived on') == '100101111000001110010011111011010110001000111101100'
+    assert huffman_encode('an assassin sins') == '110111100110001100010111110001011110'
+        
     print("Huffman Encode coding complete? Click 'Check' to earn cool rewards!")
