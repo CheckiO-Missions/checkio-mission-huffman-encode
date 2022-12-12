@@ -14,9 +14,9 @@ The simplest construction algorithm uses a priority queue where the node with lo
 3. The remaining node is the root node and the tree is complete.
 <b>Important note</b>: for our task nodes with same frequency have different priority - symbol with lower ascii code have higher priority. I.e. 'A' higher than 'B', 'DZ' higher than 'E'.
     
-4. Mark the left nodes of the tree with 0, right nodes with 1.
-5. Concatenation of zeros and ones by the way from root node to the leaf is the code for the leaf symbol.
-6. Result for our task is concatenation of all symbol codes.
+4. Mark the connections between nodes with 0 and 1 (node with higher priority with 0, other with 1).
+5. Concatenation of digits by the way from root node to the leaf is the code for the leaf symbol.
+6. Result for our task is source string, where all symbols replaced with their codes.
 </p>
 
 <p style="text-align: center;">
