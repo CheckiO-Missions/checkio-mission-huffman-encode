@@ -1,23 +1,20 @@
 <!-- Describe task in general -->
 
 <p>
-Мерзкими числами зовутся числа, состоящие только из простых делителей 2, 3 или 5. 
-Последовательность 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, ... показывает первые 11 мерзких чисел (1 тоже считается мерзким числом).
-Напишите программу, которая находит мерзкое число с номером n. Все как в прошлой задаче с парой отличий - ограничение для входного значения теперь 1000000, 
-а выходное значение - строка.
+Huffman code is a particular type of optimal prefix code that is commonly used for lossless data compression.
 </p>
 
 <p style="text-align: center;">
-    <img  title="example" src="{{MEDIA}}ugly_numbers.png" alt="ugly_numbers" style="max-height: 83px"/>
+    <img  title="example" src="{{MEDIA}}Huffman_coding_visualisation.svg" alt="Huffman_coding_visualisation" style="max-height: 384px"/>
 </p>
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Входные данные: </strong>N, int.
+    <strong>Входные данные: </strong>строка, str.
 </p>
 
 <p>
-    <strong>Выходные данные: </strong>Мерзкое число с номером N, str. 
+    <strong>Выходные данные: </strong>закодированная строка, str. 
 </p>
 
 
@@ -28,16 +25,14 @@
     </p>
 
 {% if is_js %}
-<pre class="brush: javascript">extremely_ugly(4) == '4'
-extremely_ugly(6) == '6'
-extremely_ugly(11) == '15'
-extremely_ugly(999) == '51018336'
+<pre class="brush: javascript">huffman_encode('BADABUM') == '1001110011000111'
+huffman_encode('no devil lived on') == '100101111000001110010011111011010110001000111101100'
+huffman_encode('an assassin sins') == '110111100110001100010111110001011110'
 </pre>
 {% else %}
-<pre class="brush: python">extremely_ugly(4) == '4'
-extremely_ugly(6) == '6'
-extremely_ugly(11) == '15'
-extremely_ugly(999) == '51018336'
+<pre class="brush: python">huffman_encode('BADABUM') == '1001110011000111'
+huffman_encode('no devil lived on') == '100101111000001110010011111011010110001000111101100'
+huffman_encode('an assassin sins') == '110111100110001100010111110001011110'
 </pre>
 {% endif %}
 </div>
@@ -46,15 +41,15 @@ extremely_ugly(999) == '51018336'
 <!-- Here you can explain how it can be used in development -->
 <!-- The section is optional -->
 <p class="for_info_only">
-    <strong>Где используется подобное: </strong>
-    <i>Для демонстрации того, что простое решение может быть весьма медленным</i>
+    <strong>Где используется: </strong>
+    <i>Для компрессирования данных без потерь</i>
 </p>
 
 <!-- Here you can explain some constraints for input-->
 <!-- The section is optional -->
 <p>
     <strong>Ограничения:</strong>
-    <i>Входное число меньше или равно 1000000</i>
+    <i>Входная строка максимальной длинной 32000, состоящая из символов английского алфавита и пробелов (a-z, A-Z, " ")</i>
 </p>
 
-<p><i>Идея для миссии позаимствована с соревнований ICPC</i></p>
+<p><i>Идея для миссии позаимствована со школьных соревнований для детей</i></p>
