@@ -1,0 +1,60 @@
+<!-- Describe task in general -->
+
+<p>
+Мерзкими числами зовутся числа, состоящие только из простых делителей 2, 3 или 5. 
+Последовательность 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, ... показывает первые 11 мерзких чисел (1 тоже считается мерзким числом).
+Напишите программу, которая находит мерзкое число с номером n. Все как в прошлой задаче с парой отличий - ограничение для входного значения теперь 1000000, 
+а выходное значение - строка.
+</p>
+
+<p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}ugly_numbers.png" alt="ugly_numbers" style="max-height: 83px"/>
+</p>
+
+<!-- Explain input and output values -->
+<p>
+    <strong>Входные данные: </strong>N, int.
+</p>
+
+<p>
+    <strong>Выходные данные: </strong>Мерзкое число с номером N, str. 
+</p>
+
+
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>Примеры:</strong>
+    </p>
+
+{% if is_js %}
+<pre class="brush: javascript">extremely_ugly(4) == '4'
+extremely_ugly(6) == '6'
+extremely_ugly(11) == '15'
+extremely_ugly(999) == '51018336'
+</pre>
+{% else %}
+<pre class="brush: python">extremely_ugly(4) == '4'
+extremely_ugly(6) == '6'
+extremely_ugly(11) == '15'
+extremely_ugly(999) == '51018336'
+</pre>
+{% endif %}
+</div>
+
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<p class="for_info_only">
+    <strong>Где используется подобное: </strong>
+    <i>Для демонстрации того, что простое решение может быть весьма медленным</i>
+</p>
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Ограничения:</strong>
+    <i>Входное число меньше или равно 1000000</i>
+</p>
+
+<p><i>Идея для миссии позаимствована с соревнований ICPC</i></p>

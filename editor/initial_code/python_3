@@ -1,0 +1,15 @@
+def extremely_ugly(n: int) -> str:
+    # your code here
+    return n
+
+
+if __name__ == '__main__':
+    print("Example:")
+    print(extremely_ugly(4))
+
+    # These "asserts" are used for self-checking and not for an auto-testing
+    assert extremely_ugly(4) == '4'
+    assert extremely_ugly(6) == '6'
+    assert extremely_ugly(11) == '15'
+    assert extremely_ugly(999) == '51018336'
+    print("Extremely Ugly Numbers coding complete? Click 'Check' to earn cool rewards!")
