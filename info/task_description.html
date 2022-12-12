@@ -15,13 +15,14 @@ As in other entropy encoding methods, more common symbols are generally represen
 The simplest construction algorithm uses a priority queue where the node with lowest frequency is given highest priority.
 </p>
 <ul>
-<li>1. Create a leaf node for each symbol and add it to the priority queue.</li>
-<li><ul>2. While there is more than one node in the queue:
-  <li>a. Remove the two nodes of highest priority (lowest frequency) from the queue</li>
-  <li>b. Create a new internal node with these two nodes as children and with frequency equal to the sum of the two nodes' frequencies.</li>
-  <li>c. Add the new node to the queue.</li>
-</ul></li>
-<li>3. The remaining node is the root node and the tree is complete.</li>
+<li>Create a leaf node for each symbol and add it to the priority queue.</li>
+<li>While there is more than one node in the queue:</li>
+  <ul>
+  <li>Remove the two nodes of highest priority (lowest frequency) from the queue</li>
+  <li>Create a new internal node with these two nodes as children and with frequency equal to the sum of the two nodes' frequencies.</li>
+  <li>Add the new node to the queue.</li>
+  </ul>
+<li>The remaining node is the root node and the tree is complete.</li>
 </ul>
 
 <p>
@@ -29,9 +30,9 @@ The simplest construction algorithm uses a priority queue where the node with lo
 </p>
 
 <ul>
-<li>4. Mark the connections between nodes with 0 and 1 (node with higher priority with 0, other with 1).</li>
-<li>5. Concatenation of digits by the way from root node to the leaf is the code for the leaf symbol.</li>
-<li>6. Result for our task is source string, where all symbols replaced with their codes.</li>
+<li>Mark the connections between nodes with 0 and 1 (node with higher priority with 0, other with 1).</li>
+<li>Concatenation of digits by the way from root node to the leaf is the code for the leaf symbol.</li>
+<li>Result for our task is source string, where all symbols replaced with their codes.</li>
 </ul>
     
 <p style="text-align: center;">
