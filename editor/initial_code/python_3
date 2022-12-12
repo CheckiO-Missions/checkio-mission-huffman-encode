@@ -1,15 +1,15 @@
-def extremely_ugly(n: int) -> str:
+def huffman_encode(s: str) -> str:
     # your code here
-    return n
+    return s
 
 
 if __name__ == '__main__':
     print("Example:")
-    print(extremely_ugly(4))
+    print(huffman_encode('BADABUM'))
 
     # These "asserts" are used for self-checking and not for an auto-testing
-    assert extremely_ugly(4) == '4'
-    assert extremely_ugly(6) == '6'
-    assert extremely_ugly(11) == '15'
-    assert extremely_ugly(999) == '51018336'
-    print("Extremely Ugly Numbers coding complete? Click 'Check' to earn cool rewards!")
+    assert huffman_encode('BADABUM') == '1001110011000111'
+    assert huffman_encode('A DEAD DAD CEDED A BAD BABE A BEADED ABACA BED') == \
+           '1000011101001000110010011101100111001001000111110010011111011111100010001111110100111001001011111011101000111111001'
+    assert huffman_encode('no devil lived on') == '100101111000001110010011111011010110001000111101100'
+    print("Huffman Encode coding complete? Click 'Check' to earn cool rewards!")
