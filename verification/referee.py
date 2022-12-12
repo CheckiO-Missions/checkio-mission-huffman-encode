@@ -38,8 +38,8 @@ api.add_listener(
     CheckiOReferee(
         tests=TESTS,
         function_name={
-            "python": "extremely_ugly",
-            "js": "extremely_ugly"
+            "python": "huffman_encode",
+            "js": "huffman_encode"
         },
         cover_code={
             'python-3': cover_codes.unwrap_args,
