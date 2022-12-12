@@ -1,8 +1,8 @@
 import assert from "assert";
 
-function huffman_encode(n: string): string {
+function huffman_encode(s: string): string {
     // your code here
-    return n;
+    return s;
 }
 
 console.log('Example:');
