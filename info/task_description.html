@@ -41,31 +41,20 @@ Symbols with lower ASCII code have a higher priority, for example, 'A' has a hig
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Input: </strong>s, str.
+    <strong>Input:</strong>s, str.
 </p>
 
 <p>
-    <strong>Output: </strong>huffman-encoded string, str. 
+    <strong>Output:</strong>huffman-encoded string, str. 
 </p>
 
 
 <!-- Give some usage examples -->
 <div class="for_info_only">
     <p>
-        <strong>Example:</strong>
+        <strong>Examples:</strong>
     </p>
-
-{% if is_js %}
-<pre class="brush: javascript">huffman_encode('BADABUM') == '1001110011000111'
-huffman_encode('no devil lived on') == '100101111000001110010011111011010110001000111101100'
-huffman_encode('an assassin sins') == '110111100110001100010111110001011110'
-</pre>
-{% else %}
-<pre class="brush: python">huffman_encode('BADABUM') == '1001110011000111'
-huffman_encode('no devil lived on') == '100101111000001110010011111011010110001000111101100'
-huffman_encode('an assassin sins') == '110111100110001100010111110001011110'
-</pre>
-{% endif %}
+    <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
 </div>
 
 
