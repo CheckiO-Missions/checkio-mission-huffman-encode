@@ -1,0 +1,184 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        I have no idea how to start solving this mission.
+    </div>
+    <div class="answer">
+        <p>
+            Catch an idea 💡! To create a sequence of tuples, where each tuple consists of a unique character and its frequency. Then remove two tuple with the lowest frequencies, join them and put resulted tuple back into sequence. Repeat until only one element remains. While doing this, on each step update prefix code for each character with "0" or "1" depending of the node priority in another dictionary object with letters and their prefix codes. As the last step, create and return a new string with prefix codes instead of letters, keeping the order.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, what should I start from?
+    </div>
+    <div class="answer">
+        <p>
+            There are special standard modules, which make calculations more efficient. Let's use them before function declaration. <b class="code">Counter</b> counts frequencies of elements in the sequence and return a <b class="code">Counter</b> object, which is actually a dictionary of elements and their frequencies. <a target="_blank" href="https://docs.python.org/3/library/heapq.html">heapq</a> offers an efficient priority queue algorithm and that's exactly what you need! Read about its methods.
+        </p>
+        <pre class="brush: python">
+from collections import Counter
+import heapq
+        </pre>
+        <p>
+            Create such <b class="code">Counter</b> object with <a target="_blank" href="https://docs.python.org/3/library/collections.html#collections.Counter">Counter()</a> subclass.
+        </p>
+        <pre class="brush: python">
+counter = Counter(text)
+        </pre> 
+        <p>
+            After this, you also need to initialize a dictionary to store the Huffman codes for each character, using <a target="_blank" href="https://www.w3schools.com/python/python_for_loops.asp">for</a> loop and dictionary comprehension, which is the same as <a target="_blank" href="https://www.w3schools.com/python/python_lists_comprehension.asp">list comprehension</a> but written inside dictionary brackets.
+        </p>
+        <pre class="brush: python">
+letters = {let: "" for let in counter}
+        </pre>  
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        That's already a lot of information..what to do next?
+    </div>
+    <div class="answer">
+        <p>
+            You have a <b class="code">Counter</b> object of characters and their frequencies, but you need a list of tuples with opposite order of values: (frequency, character) to use them in the priority queue (by frequency) later. Use list comprehension and <a target="_blank" href="https://www.w3schools.com/python/ref_dictionary_items.asp">dict.items()</a> method to create the list.
+        </p>
+        <pre class="brush: python">
+queue = [(freq, char) for char, freq in counter.items()]
+        </pre>
+        <p>
+            Let's define here a special case, when there is only one character in the given text (queue length equal 1) and immediately return a string of "0" repeated <b class="code">freq</b> times
+        </p>
+        <pre class="brush: python">
+if len(queue) == 1:
+    return "0" * queue[0][0]
+        </pre>
+        <p>
+            Now you may proceed with the main work!
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Yes..but I still need help.
+    </div>
+    <div class="answer">
+        <p>
+            Now you need to convert <b class="code">queue</b> into heap which gives you a possibility to efficiently push and pop elements according to their priority (frequency of characters).
+        </p>
+        <pre class="brush: python">
+heapq.heapify(queue)
+        </pre>
+        <p>
+            You need to do further operations until there is only one element remains in the <b class="code">queue</b>.
+        </p>
+        <pre class="brush: python">
+while len(queue) > 1:
+    ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I need a hint about converting two elements into one.
+    </div>
+    <div class="answer">
+        <p>
+            Pop the two nodes (a string) with the lowest frequencies from the <b class="code">queue</b>.
+        </p>
+        <pre class="brush: python">
+freq1, node1 = heapq.heappop(queue)
+freq2, node2 = heapq.heappop(queue)
+        </pre>
+        <p>
+            Now merge the two nodes and their frequencies and push back into the <b class="code">queue</b>. It is placed inside heap in order according to its frequency automatically!
+        </p>
+        <pre class="brush: python">
+freq1, node1 = heapq.heappop(queue)
+freq2, node2 = heapq.heappop(queue)
+...
+heapq.heappush(queue, (freq1 + freq2, node1 + node2))
+        </pre>
+        <p>
+            Notice, there are additional steps between these two!
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I see. Help me to write these steps.
+    </div>
+    <div class="answer">
+        <p>
+            You have created a dictionary with letters and their codes. On each step of joining two nodes you need to update code for every character in the both nodes! So, assign '0' as the code to all characters in the first node and '1' - to all characters in the second node, according to the description of mission. Do it using <b class="code">for</b> loop, dictionary keys and string concatenation.
+        </p>
+        <pre class="brush: python">
+for char in node1:
+    letters[char] = "0" + letters[char]
+
+for char in node2:
+    letters[char] = "1" + letters[char]
+        </pre>
+        <p>When only one element remains in <b class="code">queue</b>, you are ready to encode the given text!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        How to do it?
+    </div>
+    <div class="answer">
+        <p>
+            Generate the encoded representation of the text by concatenating the codes of each character, using <b class="code">for</b> loop, list comprehension, dictionary keys and <a target="_blank" href="https://www.w3schools.com/python/ref_string_join.asp">str.join()</a> method. 
+        </p>
+        <pre class="brush: python">
+encoded_text = ''.join(letters[char] for char in text)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        So, how my final solution should look like?
+    </div>
+    <div class="answer">
+        <p>
+            You just need to join all previous hints, wrap your code into function expression and return encoded text. Using type hints for input and output data are highly recommended.
+        </p>
+        <p>Here is the whole solution:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from collections import Counter
+import heapq
+
+def huffman_encode(text: str) -> str:
+
+    counter = Counter(text)
+    letters = {let: "" for let in counter}
+    queue = [(freq, char) for char, freq in counter.items()]
+    if len(queue) == 1:
+        return "0" * queue[0][0]
+    heapq.heapify(queue)
+    while len(queue) > 1:
+        freq1, node1 = heapq.heappop(queue)
+        freq2, node2 = heapq.heappop(queue)
+        for char in node1:
+            letters[char] = "0" + letters[char]
+        for char in node2:
+            letters[char] = "1" + letters[char]
+        heapq.heappush(queue, (freq1 + freq2, node1 + node2))
+    encoded_text = ''.join(letters[char] for char in text)
+
+    return encoded_text
+        </pre>
+        </div>
+        <p>Click <b>Best Solutions</b> at mission menu and see a lot of other interesting solutions!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Thanks! I know and understand more now! Everything works fine!
+    </div>
+    <div class="answer">
+        Glad to hear it 👍!
+    </div>
+</div>
+</body>
