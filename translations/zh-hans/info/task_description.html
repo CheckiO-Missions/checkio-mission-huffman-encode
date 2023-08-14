@@ -1,0 +1,76 @@
+<!-- Describe task in general -->
+
+<p>
+哈夫曼码是一种特定类型的最优前缀码，常用于无损数据压缩。 
+该算法由 David A. Huffman 在麻省理工学院攻读博士学位时开发，并于 1952 年发表。</p>
+    
+<p>
+哈夫曼算法的输出可以看作是对源符号进行编码的变长码表。
+该算法从源符号的每个可能值的估计概率或出现频率（权重）推导出这个表。
+与其他熵编码方法一样，较常见的符号通常比不常见的符号使用较少的比特来表示。
+</p>
+
+<p>
+最简单的构建算法使用优先级队列，其中频率最低的节点被赋予最高优先级。
+</p>
+<ul>
+<li>为每个符号创建一个叶节点，并将其添加到优先级队列中。</li>
+<li>当队列中有多个节点时：</li>
+  <ul>
+  <li>从队列中删除两个优先级最高（频率最低）的节点。</li>
+  <li>创建一个新的内部节点，将这两个节点作为子节点，其频率等于这两个节点的频率之和。</li>
+  <li>将新节点添加到队列中。</li>
+  </ul>
+<li>剩下的节点就是根节点，树就完成了。</li>
+</ul>
+
+<p>
+<b>important to note</b> 对于我们的任务，频率相同的节点具有不同的优先级。 
+例如，"A "的优先级高于 "B"，"DZ "的优先级高于 "E"。
+</p>
+
+<ul>
+<li>用 0 和 1 标记节点之间的连接（与优先级较高节点的连接用 0 标记，与另一个节点的连接用 1 标记）。</li>
+<li>从根节点到叶子节点的沿途数字构成叶子符号的代码。</li>
+<li>我们的任务结果是一个源字符串，其中的所有符号都已被其代码替换。</li>
+</ul>
+    
+<p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}Huffman_coding_visualisation.svg" alt="Huffman_coding_visualisation" style="max-height: 384px"/>
+</p>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>输入</strong>字符串 <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+<p>
+   <strong>输出： 字符串</strong>字符串 <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>示例</strong>
+    </p>
+    <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
+
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<p class="for_info_only">
+    <strong>如何使用</strong>
+    <i>常用于无损数据压缩。</i>
+</p>
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>前提条件</strong>
+    <i>给定字符串最大长度为 32000。字符串包含字母和空格（a-z、A-Z、""）。</i>
+</p>
+
+<p><i>任务的创意来自当地学校的儿童挑战赛。</i></p>
+<p>屏幕由 Cmglee 为<a href="https://commons.wikimedia.org/w/index.php?curid=59931033">wiki.</a></p>
