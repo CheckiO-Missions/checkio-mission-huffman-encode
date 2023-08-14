@@ -1,0 +1,184 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Nie mam pojęcia, jak zacząć rozwiązywać tę misję.
+    </div>
+    <div class="answer">
+        <p>
+            Proszę złapać pomysł 💡! Proszę utworzyć sekwencję krotek, gdzie każda krotka składa się z unikalnego znaku i jego częstotliwości. Następnie proszę usunąć dwie krotki o najniższych częstotliwościach, połączyć je i umieścić uzyskane krotki z powrotem w sekwencji. Proszę powtarzać, aż pozostanie tylko jeden element. Podczas wykonywania tej czynności, w każdym kroku proszę aktualizować kod prefiksu dla każdego znaku za pomocą "0" lub "1" w zależności od priorytetu węzła w innym obiekcie słownika z literami i ich kodami prefiksów. W ostatnim kroku proszę utworzyć i zwrócić nowy ciąg znaków z kodami prefiksów zamiast liter, zachowując kolejność.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, od czego powinienem zacząć?
+    </div>
+    <div class="answer">
+        <p>
+            Istnieją specjalne standardowe moduły, które usprawniają obliczenia. Użyjmy ich przed deklaracją funkcji. <b class="code">Counter</b> zlicza częstotliwości elementów w sekwencji i zwraca obiekt <b class="code">Counter</b>, który jest w rzeczywistości słownikiem elementów i ich częstotliwości. <a target="_blank" href="https://docs.python.org/3/library/heapq.html">heapq</a> oferuje wydajny algorytm kolejki priorytetowej i to jest dokładnie to, czego potrzebujesz! Proszę zapoznać się z jego metodami.
+        </p>
+        <pre class="brush: python">
+from collections import Counter
+import heapq
+        </pre>
+        <p>
+            Proszę utworzyć taki obiekt <b class="code">Counter</b> z podklasą <a target="_blank" href="https://docs.python.org/3/library/collections.html#collections.Counter">Counter()</a>.
+        </p>
+        <pre class="brush: python">
+counter = Counter(text)
+        </pre> 
+        <p>
+            Następnie należy również zainicjować słownik, aby przechowywać kody Huffmana dla każdego znaku, używając pętli <a target="_blank" href="https://www.w3schools.com/python/python_for_loops.asp">for</a> i rozumienia słownika, które jest takie samo jak <a target="_blank" href="https://www.w3schools.com/python/python_lists_comprehension.asp">list comprehension</a>, ale zapisane w nawiasach słownikowych.
+        </p>
+        <pre class="brush: python">
+letters = {let: "" for let in counter}
+        </pre>  
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        To już dużo informacji... co robić dalej?
+    </div>
+    <div class="answer">
+        <p>
+            Ma Pan obiekt <b class="code">Counter</b> znaków i ich częstotliwości, ale potrzebuje Pan listy krotek z odwrotną kolejnością wartości: (częstotliwość, znak), aby później użyć ich w kolejce priorytetowej (według częstotliwości). Aby utworzyć listę, proszę użyć metody list comprehension i <a target="_blank" href="https://www.w3schools.com/python/ref_dictionary_items.asp">dict.items()</a>.
+        </p>
+        <pre class="brush: python">
+queue = [(freq, char) for char, freq in counter.items()]
+        </pre>
+        <p>
+            Zdefiniujmy tutaj specjalny przypadek, gdy w podanym tekście jest tylko jeden znak (długość kolejki równa 1) i natychmiast zwróćmy ciąg "0" powtórzony <b class="code">freq</b> razy
+        </p>
+        <pre class="brush: python">
+if len(queue) == 1:
+    return "0" * queue[0][0]
+        </pre>
+        <p>
+            Teraz mogą Państwo przystąpić do głównej pracy!
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Tak, ale nadal potrzebuję pomocy.
+    </div>
+    <div class="answer">
+        <p>
+            Teraz musi Pan przekonwertować <b class="code">queue</b> na stertę, która daje możliwość wydajnego pchania i wyskakiwania elementów zgodnie z ich priorytetem (częstotliwością znaków).
+        </p>
+        <pre class="brush: python">
+heapq.heapify(queue)
+        </pre>
+        <p>
+            Proszę wykonywać kolejne operacje, aż w <b class="code">queue</b> pozostanie tylko jeden element.
+        </p>
+        <pre class="brush: python">
+while len(queue)> 1:
+    ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Proszę mi podpowiedzieć jak zamienić dwa elementy w jeden.
+    </div>
+    <div class="answer">
+        <p>
+            Proszę wybrać dwa węzły (ciąg znaków) o najniższych częstotliwościach z <b class="code">queue</b>.
+        </p>
+        <pre class="brush: python">
+freq1, node1 = heapq.heappop(queue)
+freq2, node2 = heapq.heappop(queue)
+        </pre>
+        <p>
+            Teraz proszę połączyć te dwa węzły i ich częstotliwości, a następnie wepchnąć je z powrotem do <b class="code">queue</b>. Zostaną one automatycznie umieszczone w stercie w kolejności zgodnej z ich częstotliwością!
+        </p>
+        <pre class="brush: python">
+freq1, node1 = heapq.heappop(queue)
+freq2, node2 = heapq.heappop(queue)
+...
+heapq.heappush(queue, (freq1 + freq2, node1 + node2))
+        </pre>
+        <p>
+            Proszę zauważyć, że istnieją dodatkowe kroki pomiędzy tymi dwoma!
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Rozumiem. Proszę mi pomóc napisać te kroki.
+    </div>
+    <div class="answer">
+        <p>
+            Stworzył Pan słownik z literami i ich kodami. Na każdym kroku łączenia dwóch węzłów musi Pan zaktualizować kod dla każdego znaku w obu węzłach! Proszę więc przypisać '0' jako kod do wszystkich znaków w pierwszym węźle i '1' - do wszystkich znaków w drugim węźle, zgodnie z opisem misji. Proszę to zrobić za pomocą pętli <b class="code">for</b>, kluczy słownikowych i konkatenacji ciągów znaków.
+        </p>
+        <pre class="brush: python">
+for char in node1:
+    letters[char] = "0" + letters[char]
+
+for char in node2:
+    letters[char] = "1" + letters[char]
+        </pre>
+        <p>Gdy w <b class="code">queue</b> pozostanie tylko jeden element, są Państwo gotowi do zakodowania podanego tekstu!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Jak to zrobić?
+    </div>
+    <div class="answer">
+        <p>
+            Proszę wygenerować zakodowaną reprezentację tekstu, łącząc kody każdego znaku, używając pętli <b class="code">for</b>, rozumienia listy, kluczy słownika i metody <a target="_blank" href="https://www.w3schools.com/python/ref_string_join.asp">str.join()</a>. 
+        </p>
+        <pre class="brush: python">
+encoded_text = ''.join(letters[char] for char in text)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Jak więc powinno wyglądać moje ostateczne rozwiązanie?
+    </div>
+    <div class="answer">
+        <p>
+            Wystarczy połączyć wszystkie poprzednie podpowiedzi, zawinąć kod w wyrażenie funkcyjne i zwrócić zakodowany tekst. Używanie podpowiedzi typu dla danych wejściowych i wyjściowych jest wysoce zalecane.
+        </p>
+        <p>Oto całe rozwiązanie:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from collections import Counter
+import heapq
+
+def huffman_encode(text: str) -> str:
+
+    counter = Counter(text)
+    letters = {let: "" for let in counter}
+    queue = [(freq, char) for char, freq in counter.items()]
+    if len(queue) == 1:
+        return "0" * queue[0][0]
+    heapq.heapify(queue)
+    while len(queue)> 1:
+        freq1, node1 = heapq.heappop(queue)
+        freq2, node2 = heapq.heappop(queue)
+        for char in node1:
+            letters[char] = "0" + letters[char]
+        for char in node2:
+            letters[char] = "1" + letters[char]
+        heapq.heappush(queue, (freq1 + freq2, node1 + node2))
+    encoded_text = ''.join(letters[char] for char in text)
+
+    return encoded_text
+        </pre>
+        </div>
+        <p>Proszę kliknąć <b>Best Solutions</b> w menu misji i zobaczyć wiele innych ciekawych rozwiązań!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Dzięki! Teraz wiem i rozumiem więcej! Wszystko działa jak należy!
+    </div>
+    <div class="answer">
+        Miło mi to słyszeć 👍!
+    </div>
+</div>
+</body>
