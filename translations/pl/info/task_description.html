@@ -1,0 +1,76 @@
+<!-- Describe task in general -->
+
+<p>
+Kod Huffmana to specyficzny rodzaj optymalnego kodu prefiksowego, który jest powszechnie stosowany do bezstratnej kompresji danych. 
+Algorytm został opracowany przez Davida A. Huffmana podczas studiów doktoranckich na MIT i opublikowany w 1952 roku.</p>
+    
+<p>
+Wynik algorytmu Huffmana można postrzegać jako tabelę kodów o zmiennej długości do kodowania symbolu źródłowego.
+Algorytm wyprowadza tę tabelę z szacowanego prawdopodobieństwa lub częstotliwości występowania (wagi) dla każdej możliwej wartości symbolu źródłowego.
+Podobnie jak w innych metodach kodowania entropijnego, bardziej powszechne symbole są generalnie reprezentowane przy użyciu mniejszej liczby bitów niż mniej powszechne symbole.
+</p>
+
+<p>
+Najprostszy algorytm konstrukcyjny wykorzystuje kolejkę priorytetową, w której węzeł o najniższej częstotliwości ma najwyższy priorytet.
+</p>
+<ul>
+<li>Proszę utworzyć węzeł liścia dla każdego symbolu i dodać go do kolejki priorytetów.</li>
+<li>Jeśli w kolejce znajduje się więcej niż jeden węzeł:</li>
+  <ul>
+  <li>Proszę usunąć z kolejki dwa węzły o najwyższym priorytecie (najniższej częstotliwości).</li>
+  <li>Proszę utworzyć nowy węzeł wewnętrzny z tymi dwoma węzłami jako dziećmi i z częstotliwością równą sumie częstotliwości tych dwóch węzłów.</li>
+  <li>Proszę dodać nowy węzeł do kolejki.</li>
+  </ul>
+<li>Pozostały węzeł jest węzłem głównym, a drzewo jest kompletne.</li>
+</ul>
+
+<p>
+ <b>important to note</b> Proszę zauważyć, że w naszym zadaniu węzły o tej samej częstotliwości mają różne priorytety. 
+Symbole o niższym kodzie ASCII mają wyższy priorytet, na przykład "A" ma wyższy priorytet niż "B", a "DZ" ma wyższy priorytet niż "E".
+</p>
+
+<ul>
+<li>Proszę oznaczyć połączenia między węzłami cyframi 0 i 1 (połączenie z węzłem o wyższym priorytecie cyfrą 0, a z drugim węzłem cyfrą 1).</li>
+<li>Cyfry na drodze od węzła głównego do liścia tworzą kod symbolu liścia.</li>
+<li>Wynikiem naszego zadania jest ciąg źródłowy, w którym wszystkie symbole zostały zastąpione ich kodami.</li>
+</ul>
+    
+<p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}Huffman_coding_visualisation.svg" alt="Huffman_coding_visualisation" style="max-height: 384px"/>
+</p>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Dane wejściowe:</strong> Ciąg <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+<p>
+   <strong>Wyjście:</strong> String <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>Przykłady:</strong>
+    </p>
+    <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
+
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<p class="for_info_only">
+    <strong>Jak jest używany:</strong>
+    <i>Powszechnie używany do bezstratnej kompresji danych.</i>
+</p>
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Warunek wstępny:</strong>
+    <i>Maksymalna długość podanego ciągu wynosi 32000. Ciąg zawiera litery i spacje (a-z, A-Z, " ").</i>
+</p>
+
+<p><i>Pomysł na misję został zaczerpnięty z lokalnego szkolnego wyzwania dla dzieci.</i></p>
+<p>Screen by Cmglee for <a href="https://commons.wikimedia.org/w/index.php?curid=59931033">wiki.</a></p>
