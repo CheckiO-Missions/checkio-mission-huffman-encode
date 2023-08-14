@@ -1,0 +1,76 @@
+<!-- Describe task in general -->
+
+<p>
+Le code de Huffman est un type spécifique de code de préfixe optimal qui est couramment utilisé pour la compression de données sans perte. 
+L'algorithme a été développé par David A. Huffman alors qu'il était étudiant en doctorat au MIT et a été publié en 1952.</p>
+    
+<p>
+La sortie de l'algorithme de Huffman peut être considérée comme une table de codes de longueur variable pour le codage d'un symbole source.
+L'algorithme dérive cette table de la probabilité estimée ou de la fréquence d'occurrence (poids) pour chaque valeur possible du symbole source.
+Comme dans d'autres méthodes de codage entropique, les symboles les plus courants sont généralement représentés en utilisant moins de bits que les symboles moins courants.
+</p>
+
+<p>
+L'algorithme de construction le plus simple utilise une file d'attente prioritaire, où le nœud ayant la fréquence la plus faible a la priorité la plus élevée.
+</p>
+<ul>
+<li>Créez un nœud feuille pour chaque symbole et ajoutez-le à la file d'attente prioritaire.</li>
+<li>S'il y a plus d'un nœud dans la file d'attente:</li>
+  <ul>
+  <li>Retirez les deux nœuds les plus prioritaires (fréquence la plus basse) de la file d'attente.</li>
+  <li>Créez un nouveau nœud interne avec ces deux nœuds comme enfants et avec une fréquence égale à la somme des fréquences des deux nœuds.</li>
+  <li>Ajoutez le nouveau nœud à la file d'attente.</li>
+  </ul>
+<li>Le nœud restant est le nœud racine et l'arbre est complet.</li>
+</ul>
+
+<p>
+Vous trouverez à l'adresse <b>important to note</b> que, pour notre tâche, les nœuds ayant la même fréquence ont des priorités différentes. 
+Les symboles dont le code ASCII est le plus bas ont une priorité plus élevée, par exemple, "A" a une priorité plus élevée que "B", et "DZ" a une priorité plus élevée que "E".
+</p>
+
+<ul>
+<li>Marquez les connexions entre les nœuds par 0 et 1 (la connexion avec le nœud le plus prioritaire par 0, et l'autre par 1).</li>
+<li>Les chiffres sur le chemin entre le nœud racine et la feuille forment le code du symbole de la feuille.</li>
+<li>Le résultat de notre tâche est une chaîne source dans laquelle tous les symboles ont été remplacés par leurs codes.</li>
+</ul>
+    
+<p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}Huffman_coding_visualisation.svg" alt="Huffman_coding_visualisation" style="max-height: 384px"/>
+</p>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Entrée:</strong> Chaîne <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+<p>
+   <strong>Sortie:</strong> Chaîne <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>Exemples:</strong>
+    </p>
+    <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
+
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<p class="for_info_only">
+    <strong>Utilisation:</strong>
+    <i>Couramment utilisé pour la compression de données sans perte.</i>
+</p>
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Condition préalable:</strong>
+    <i>La longueur maximale d'une chaîne donnée est de 32000. La chaîne contient des lettres et des espaces (a-z, A-Z, " ").</i>
+</p>
+
+<p><i>L'idée de la mission a été tirée d'un défi lancé par une école locale aux enfants.</i></p>
+<p>Écran de Cmglee pour <a href="https://commons.wikimedia.org/w/index.php?curid=59931033">wiki.</a></p>
