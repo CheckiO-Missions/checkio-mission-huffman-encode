@@ -1,0 +1,184 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Je n'ai aucune idée de la manière de commencer à résoudre cette mission.
+    </div>
+    <div class="answer">
+        <p>
+            Attrapez une idée 💡! Créer une séquence de tuples, où chaque tuple est composé d'un caractère unique et de sa fréquence. Puis retirer deux tuple avec les fréquences les plus basses, les joindre et remettre le tuple résultant dans la séquence. Répétez l'opération jusqu'à ce qu'il ne reste plus qu'un seul élément. Ce faisant, à chaque étape, mettez à jour le code préfixe de chaque caractère avec "0" ou "1" en fonction de la priorité du nœud dans un autre objet dictionnaire avec les lettres et leurs codes préfixes. En dernière étape, créez et renvoyez une nouvelle chaîne avec des codes de préfixe au lieu de lettres, en conservant l'ordre.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, par quoi dois-je commencer?
+    </div>
+    <div class="answer">
+        <p>
+            Il existe des modules standard spéciaux qui rendent les calculs plus efficaces. Utilisons-les avant de déclarer une fonction. <b class="code">Counter</b> compte les fréquences des éléments de la séquence et renvoie un objet <b class="code">Counter</b>, qui est en fait un dictionnaire d'éléments et de leurs fréquences. <a target="_blank" href="https://docs.python.org/3/library/heapq.html">heapq</a> offre un algorithme efficace de file d'attente prioritaire et c'est exactement ce dont vous avez besoin! Découvrez ses méthodes.
+        </p>
+        <pre class="brush: python">
+from collections import Counter
+import heapq
+        </pre>
+        <p>
+            Créez un tel objet <b class="code">Counter</b> avec la sous-classe <a target="_blank" href="https://docs.python.org/3/library/collections.html#collections.Counter">Counter()</a>.
+        </p>
+        <pre class="brush: python">
+counter = Counter(text)
+        </pre> 
+        <p>
+            Ensuite, vous devez également initialiser un dictionnaire pour stocker les codes de Huffman pour chaque caractère, en utilisant la boucle <a target="_blank" href="https://www.w3schools.com/python/python_for_loops.asp">for</a> et la compréhension du dictionnaire, qui est la même que <a target="_blank" href="https://www.w3schools.com/python/python_lists_comprehension.asp">list comprehension</a> mais écrite à l'intérieur des crochets du dictionnaire.
+        </p>
+        <pre class="brush: python">
+letters = {let: "" for let in counter}
+        </pre>  
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Cela fait déjà beaucoup d'informations... que faire ensuite?
+    </div>
+    <div class="answer">
+        <p>
+            Vous avez un objet <b class="code">Counter</b> contenant des caractères et leurs fréquences, mais vous avez besoin d'une liste de tuples avec l'ordre opposé des valeurs: (fréquence, caractère) pour les utiliser plus tard dans la file d'attente prioritaire (par fréquence). Utilisez la compréhension de liste et la méthode <a target="_blank" href="https://www.w3schools.com/python/ref_dictionary_items.asp">dict.items()</a> pour créer la liste.
+        </p>
+        <pre class="brush: python">
+queue = [(freq, char) for char, freq in counter.items()]
+        </pre>
+        <p>
+            Définissons ici un cas particulier, lorsqu'il n'y a qu'un seul caractère dans le texte donné (longueur de la file d'attente égale à 1) et renvoyons immédiatement une chaîne de "0" répétée <b class="code">freq</b> fois
+        </p>
+        <pre class="brush: python">
+if len(queue) == 1:
+    return "0" * queue[0][0]
+        </pre>
+        <p>
+            Vous pouvez maintenant passer au travail principal!
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Oui, mais j'ai encore besoin d'aide.
+    </div>
+    <div class="answer">
+        <p>
+            Vous devez maintenant convertir <b class="code">queue</b> en tas, ce qui vous permet de pousser et de retirer efficacement les éléments en fonction de leur priorité (fréquence des caractères).
+        </p>
+        <pre class="brush: python">
+heapq.heapify(queue)
+        </pre>
+        <p>
+            Vous devez effectuer d'autres opérations jusqu'à ce qu'il ne reste plus qu'un seul élément dans le <b class="code">queue</b>.
+        </p>
+        <pre class="brush: python">
+while len(queue)> 1:
+    ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        J'ai besoin d'un indice pour convertir deux éléments en un seul.
+    </div>
+    <div class="answer">
+        <p>
+            Retirez les deux nœuds (une chaîne) ayant les fréquences les plus basses du site <b class="code">queue</b>.
+        </p>
+        <pre class="brush: python">
+freq1, node1 = heapq.heappop(queue)
+freq2, node2 = heapq.heappop(queue)
+        </pre>
+        <p>
+            Fusionnez maintenant les deux nœuds et leurs fréquences et repoussez-les dans le <b class="code">queue</b>. Ils sont placés dans le tas dans l'ordre de leur fréquence automatiquement!
+        </p>
+        <pre class="brush: python">
+freq1, node1 = heapq.heappop(queue)
+freq2, node2 = heapq.heappop(queue)
+...
+heapq.heappush(queue, (freq1 + freq2, node1 + node2))
+        </pre>
+        <p>
+            Remarquez qu'il y a des étapes supplémentaires entre ces deux nœuds!
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Je vois. Aidez-moi à écrire ces étapes.
+    </div>
+    <div class="answer">
+        <p>
+            Vous avez créé un dictionnaire avec des lettres et leurs codes. À chaque étape de la jonction de deux nœuds, vous devez mettre à jour le code de chaque caractère dans les deux nœuds! Attribuez donc le code "0" à tous les caractères du premier nœud et le code "1" à tous les caractères du second nœud, conformément à la description de la mission. Pour ce faire, utilisez la boucle <b class="code">for</b>, les clés du dictionnaire et la concaténation de chaînes de caractères.
+        </p>
+        <pre class="brush: python">
+for char in node1:
+    letters[char] = "0" + letters[char]
+
+for char in node2:
+    letters[char] = "1" + letters[char]
+        </pre>
+        <p>Lorsqu'il ne reste plus qu'un seul élément dans <b class="code">queue</b>, vous êtes prêt à encoder le texte donné!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Comment procéder?
+    </div>
+    <div class="answer">
+        <p>
+            Générez la représentation codée du texte en concaténant les codes de chaque caractère, en utilisant la boucle <b class="code">for</b>, la compréhension de liste, les clés de dictionnaire et la méthode <a target="_blank" href="https://www.w3schools.com/python/ref_string_join.asp">str.join()</a>. 
+        </p>
+        <pre class="brush: python">
+encoded_text = ''.join(letters[char] for char in text)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Alors, à quoi devrait ressembler ma solution finale?
+    </div>
+    <div class="answer">
+        <p>
+            Il vous suffit de joindre tous les indices précédents, d'envelopper votre code dans une expression de fonction et de renvoyer un texte codé. Il est fortement recommandé d'utiliser des indications de type pour les données d'entrée et de sortie.
+        </p>
+        <p>Voici la solution complète:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from collections import Counter
+import heapq
+
+def huffman_encode(text: str) -> str:
+
+    counter = Counter(text)
+    letters = {let: "" for let in counter}
+    queue = [(freq, char) for char, freq in counter.items()]
+    if len(queue) == 1:
+        return "0" * queue[0][0]
+    heapq.heapify(queue)
+    while len(queue)> 1:
+        freq1, node1 = heapq.heappop(queue)
+        freq2, node2 = heapq.heappop(queue)
+        for char in node1:
+            letters[char] = "0" + letters[char]
+        for char in node2:
+            letters[char] = "1" + letters[char]
+        heapq.heappush(queue, (freq1 + freq2, node1 + node2))
+    encoded_text = ''.join(letters[char] for char in text)
+
+    return encoded_text
+        </pre>
+        </div>
+        <p>Cliquez sur <b>Best Solutions</b> dans le menu mission et découvrez de nombreuses autres solutions intéressantes!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Merci beaucoup! Je sais et je comprends mieux maintenant! Tout fonctionne bien!
+    </div>
+    <div class="answer">
+        Heureux de l'apprendre 👍!
+    </div>
+</div>
+</body>
