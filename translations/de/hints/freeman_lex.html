@@ -1,0 +1,184 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Ich habe keine Ahnung, wie ich mit der Lösung dieser Aufgabe beginnen soll.
+    </div>
+    <div class="answer">
+        <p>
+            Fangen Sie eine Idee 💡! Erstellen Sie eine Folge von Tupeln, wobei jedes Tupel aus einem eindeutigen Zeichen und seiner Häufigkeit besteht. Dann entfernen Sie die beiden Tupel mit den niedrigsten Frequenzen, fügen sie zusammen und setzen das so entstandene Tupel wieder in die Sequenz ein. Wiederholen Sie den Vorgang, bis nur noch ein Element übrig ist. Aktualisieren Sie dabei bei jedem Schritt den Präfixcode für jedes Zeichen mit "0" oder "1", je nach Knotenpriorität in einem anderen Wörterbuchobjekt mit Buchstaben und ihren Präfixcodes. Als letzten Schritt erstellen Sie eine neue Zeichenfolge mit Präfixcodes anstelle von Buchstaben und geben diese zurück, wobei Sie die Reihenfolge beibehalten.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, womit soll ich anfangen?
+    </div>
+    <div class="answer">
+        <p>
+            Es gibt spezielle Standardmodule, die Berechnungen effizienter machen. Lassen Sie uns diese vor der Funktionsdeklaration verwenden. <b class="code">Counter</b> zählt die Häufigkeiten der Elemente in der Sequenz und gibt ein <b class="code">Counter</b> Objekt zurück, das eigentlich ein Wörterbuch der Elemente und ihrer Häufigkeiten ist. <a target="_blank" href="https://docs.python.org/3/library/heapq.html">heapq</a> bietet einen effizienten Prioritätswarteschlangen-Algorithmus und das ist genau das, was Sie brauchen! Lesen Sie mehr über seine Methoden.
+        </p>
+        <pre class="brush: python">
+from collections import Counter
+import heapq
+        </pre>
+        <p>
+            Erstellen Sie ein solches <b class="code">Counter</b> Objekt mit der Unterklasse <a target="_blank" href="https://docs.python.org/3/library/collections.html#collections.Counter">Counter()</a>.
+        </p>
+        <pre class="brush: python">
+counter = Counter(text)
+        </pre> 
+        <p>
+            Danach müssen Sie auch ein Wörterbuch initialisieren, um die Huffman-Codes für jedes Zeichen zu speichern. Dazu verwenden Sie die <a target="_blank" href="https://www.w3schools.com/python/python_for_loops.asp">for</a> Schleife und das Wörterbuchverständnis, das dasselbe ist wie <a target="_blank" href="https://www.w3schools.com/python/python_lists_comprehension.asp">list comprehension</a>, aber in Wörterbuchklammern geschrieben wird.
+        </p>
+        <pre class="brush: python">
+letters = {let: "" for let in counter}
+        </pre>  
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Das sind schon eine Menge Informationen... was tun Sie als nächstes?
+    </div>
+    <div class="answer">
+        <p>
+            Sie haben ein <b class="code">Counter</b> Objekt mit Zeichen und deren Häufigkeit, aber Sie brauchen eine Liste von Tupeln mit umgekehrter Reihenfolge der Werte: (Häufigkeit, Zeichen), um sie später in der Prioritätswarteschlange (nach Häufigkeit) zu verwenden. Verwenden Sie List Comprehension und die Methode <a target="_blank" href="https://www.w3schools.com/python/ref_dictionary_items.asp">dict.items()</a>, um die Liste zu erstellen.
+        </p>
+        <pre class="brush: python">
+queue = [(freq, char) for char, freq in counter.items()]
+        </pre>
+        <p>
+            Definieren wir hier einen Sonderfall, in dem nur ein Zeichen in dem gegebenen Text vorkommt (Länge der Warteschlange gleich 1) und geben Sie sofort eine Zeichenkette mit "0" zurück, die <b class="code">freq</b> wiederholt wird
+        </p>
+        <pre class="brush: python">
+if len(queue) == 1:
+    return "0" * queue[0][0]
+        </pre>
+        <p>
+            Jetzt können Sie mit der Hauptarbeit fortfahren!
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ja...aber ich brauche noch Hilfe.
+    </div>
+    <div class="answer">
+        <p>
+            Jetzt müssen Sie <b class="code">queue</b> in einen Haufen umwandeln, der Ihnen die Möglichkeit gibt, Elemente entsprechend ihrer Priorität (Häufigkeit der Zeichen) effizient zu verschieben und zu löschen.
+        </p>
+        <pre class="brush: python">
+heapq.heapify(queue)
+        </pre>
+        <p>
+            Sie müssen weitere Operationen durchführen, bis nur noch ein Element in <b class="code">queue</b> übrig ist.
+        </p>
+        <pre class="brush: python">
+while len(queue)> 1:
+    ...
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ich brauche einen Hinweis, wie man zwei Elemente in ein einziges umwandelt.
+    </div>
+    <div class="answer">
+        <p>
+            Ziehen Sie die beiden Knoten (eine Zeichenkette) mit den niedrigsten Frequenzen aus der <b class="code">queue</b>.
+        </p>
+        <pre class="brush: python">
+freq1, node1 = heapq.heappop(queue)
+freq2, node2 = heapq.heappop(queue)
+        </pre>
+        <p>
+            Führen Sie nun die beiden Knoten und ihre Frequenzen zusammen und schieben Sie sie zurück in den <b class="code">queue</b>. Er wird automatisch in der Reihenfolge seiner Frequenz im Heap platziert!
+        </p>
+        <pre class="brush: python">
+freq1, node1 = heapq.heappop(queue)
+freq2, node2 = heapq.heappop(queue)
+...
+heapq.heappush(queue, (freq1 + freq2, node1 + node2))
+        </pre>
+        <p>
+            Beachten Sie, dass zwischen diesen beiden Schritten noch weitere liegen!
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ich verstehe. Helfen Sie mir, diese Schritte zu schreiben.
+    </div>
+    <div class="answer">
+        <p>
+            Sie haben ein Wörterbuch mit Buchstaben und ihren Codes erstellt. Bei jedem Schritt der Verbindung zweier Knoten müssen Sie den Code für jedes Zeichen in beiden Knoten aktualisieren! Weisen Sie also allen Zeichen im ersten Knoten den Code '0' und allen Zeichen im zweiten Knoten den Code '1' zu, entsprechend der Beschreibung der Aufgabe. Verwenden Sie dazu die <b class="code">for</b> Schleife, Wörterbuchschlüssel und String-Verkettung.
+        </p>
+        <pre class="brush: python">
+for char in node1:
+    letters[char] = "0" + letters[char]
+
+for char in node2:
+    letters[char] = "1" + letters[char]
+        </pre>
+        <p>Wenn nur noch ein Element in <b class="code">queue</b> verbleibt, sind Sie bereit, den angegebenen Text zu kodieren!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Wie macht man das?
+    </div>
+    <div class="answer">
+        <p>
+            Erzeugen Sie die kodierte Darstellung des Textes, indem Sie die Codes der einzelnen Zeichen mit Hilfe der <b class="code">for</b> Schleife, des Listenverständnisses, der Wörterbuchschlüssel und der <a target="_blank" href="https://www.w3schools.com/python/ref_string_join.asp">str.join()</a> Methode verketten. 
+        </p>
+        <pre class="brush: python">
+encoded_text = ''.join(letters[char] for char in text)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Wie sollte also meine endgültige Lösung aussehen?
+    </div>
+    <div class="answer">
+        <p>
+            Sie müssen nur alle vorherigen Hinweise zusammenführen, Ihren Code in einen Funktionsausdruck verpacken und kodierten Text zurückgeben. Die Verwendung von Typ-Hinweisen für Eingabe- und Ausgabedaten wird dringend empfohlen.
+        </p>
+        <p>Hier ist die gesamte Lösung:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from collections import Counter
+import heapq
+
+def huffman_encode(text: str) -> str:
+
+    counter = Counter(text)
+    letters = {let: "" for let in counter}
+    queue = [(freq, char) for char, freq in counter.items()]
+    if len(queue) == 1:
+        return "0" * queue[0][0]
+    heapq.heapify(queue)
+    while len(queue)> 1:
+        freq1, node1 = heapq.heappop(queue)
+        freq2, node2 = heapq.heappop(queue)
+        for char in node1:
+            letters[char] = "0" + letters[char]
+        for char in node2:
+            letters[char] = "1" + letters[char]
+        heapq.heappush(queue, (freq1 + freq2, node1 + node2))
+    encoded_text = ''.join(letters[char] for char in text)
+
+    return encoded_text
+        </pre>
+        </div>
+        <p>Klicken Sie auf <b>Best Solutions</b> im Menü Mission und sehen Sie sich viele andere interessante Lösungen an!</p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Vielen Dank! Ich weiß und verstehe jetzt mehr! Alles funktioniert einwandfrei!
+    </div>
+    <div class="answer">
+        Freut mich zu hören 👍!
+    </div>
+</div>
+</body>
