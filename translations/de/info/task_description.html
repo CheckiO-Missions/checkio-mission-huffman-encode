@@ -1,0 +1,76 @@
+<!-- Describe task in general -->
+
+<p>
+Der Huffman-Code ist ein spezieller Typ eines optimalen Präfix-Codes, der häufig zur verlustfreien Datenkomprimierung verwendet wird. 
+Der Algorithmus wurde von David A. Huffman während seiner Zeit als Doktorand am MIT entwickelt und 1952 veröffentlicht.</p>
+    
+<p>
+Die Ausgabe des Huffman-Algorithmus kann als eine Codetabelle variabler Länge zur Codierung eines Quellensymbols betrachtet werden.
+Der Algorithmus leitet diese Tabelle aus der geschätzten Wahrscheinlichkeit oder Häufigkeit des Auftretens (Gewicht) für jeden möglichen Wert des Quellensymbols ab.
+Wie bei anderen Entropie-Kodierungsmethoden werden häufigere Symbole im Allgemeinen mit weniger Bits dargestellt als weniger häufige Symbole.
+</p>
+
+<p>
+Der einfachste Konstruktionsalgorithmus verwendet eine Prioritätswarteschlange, bei der der Knoten mit der geringsten Häufigkeit die höchste Priorität erhält.
+</p>
+<ul>
+<li>Erstellen Sie für jedes Symbol einen Blattknoten und fügen Sie ihn der Prioritätswarteschlange hinzu.</li>
+<li>Solange es mehr als einen Knoten in der Warteschlange gibt:</li>
+  <ul>
+  <li>Entfernen Sie die beiden Knoten mit der höchsten Priorität (niedrigste Frequenz) aus der Warteschlange.</li>
+  <li>Erstellen Sie einen neuen internen Knoten mit diesen beiden Knoten als Unterknoten und mit einer Frequenz, die der Summe der Frequenzen der beiden Knoten entspricht.</li>
+  <li>Fügen Sie den neuen Knoten zur Warteschlange hinzu.</li>
+  </ul>
+<li>Der verbleibende Knoten ist der Wurzelknoten, und der Baum ist vollständig.</li>
+</ul>
+
+<p>
+Unter <b>important to note</b> finden Sie, dass für unsere Aufgabe Knoten mit der gleichen Frequenz unterschiedliche Prioritäten haben. 
+Symbole mit einem niedrigeren ASCII-Code haben eine höhere Priorität, z.B. hat 'A' eine höhere Priorität als 'B' und 'DZ' hat eine höhere Priorität als 'E'.
+</p>
+
+<ul>
+<li>Markieren Sie die Verbindungen zwischen den Knoten mit 0 und 1 (die Verbindung mit dem Knoten mit der höheren Priorität mit 0, die andere mit 1).</li>
+<li>Die Ziffern auf dem Weg vom Wurzelknoten zum Blatt bilden den Code für das Symbol des Blattes.</li>
+<li>Das Ergebnis für unsere Aufgabe ist eine Quellzeichenkette, in der alle Symbole durch ihre Codes ersetzt wurden.</li>
+</ul>
+    
+<p style="text-align: center;">
+    <img  title="example" src="{{MEDIA}}Huffman_coding_visualisation.svg" alt="Huffman_coding_visualisation" style="max-height: 384px"/>
+</p>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Eingabe:</strong> Zeichenkette <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+<p>
+   <strong>Ausgabe:</strong> String <span>(str{% if is_js %}ing{% endif %})</span>.
+</p>
+
+
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>Beispiele:</strong>
+    </p>
+    <pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
+
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<p class="for_info_only">
+    <strong>Wie es verwendet wird:</strong>
+    <i>Wird häufig für die verlustfreie Datenkomprimierung verwendet.</i>
+</p>
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Vorbedingung:</strong>
+    <i>Die gegebene Zeichenkette hat eine maximale Länge von 32000. Die Zeichenfolge enthält Buchstaben und Leerzeichen (a-z, A-Z, " ").</i>
+</p>
+
+<p><i>Die Idee für diese Aufgabe stammt von einer lokalen Schulaufgabe für Kinder.</i></p>
+<p>Bildschirm von Cmglee für <a href="https://commons.wikimedia.org/w/index.php?curid=59931033">wiki.</a></p>
